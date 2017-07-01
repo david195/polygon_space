@@ -28,12 +28,10 @@ function importScript(nombre) {
 importScript('js/convexhull.js');
 
 function draw_space(div,height,width){
-<<<<<<< HEAD
+
   this.inode = -1;
   this.gnode = -1;
-=======
   this.solution = {};
->>>>>>> 42c309adab2ac9b223d3e2276831389ff37e0f3d
   this.edges = []
   this.nodes = []
   this.drawing = div;
@@ -189,13 +187,10 @@ function draw_space(div,height,width){
   this.search = function(ei,ef,type,data_div,div){
     if(ei==ef)
       return;
-<<<<<<< HEAD
     if(type == 'a*'){
       aux_nodes = this.nodes;
-=======
     var aux = null;
     if(type == 'a*')
->>>>>>> 42c309adab2ac9b223d3e2276831389ff37e0f3d
       a(ei,ef,{nodes:this.graph.body.data.nodes,edges:this.graph.body.data.edges},function(sol){
         aux = sol;
         draw_sol(sol,data_div,div);
@@ -204,11 +199,9 @@ function draw_space(div,height,width){
           aux_nodes[ind].color = 'red'
         }
       });
-<<<<<<< HEAD
       this.canvas.style.opacity = 0.5;
       this.vgraph(this.graph.body.container);
       this.graph.redraw();
-=======
       if(type == 'avida')
         avida(ei,ef,{nodes:this.graph.body.data.nodes,edges:this.graph.body.data.edges},function(sol){
           aux = sol;
@@ -216,6 +209,7 @@ function draw_space(div,height,width){
         });
     this.solution = aux;
   }
+}
 
   this.draw_polygons = function(){
     for(var i=0;i<this.polygons.length;i++){
@@ -231,7 +225,6 @@ function draw_space(div,height,width){
       var color = color_rand();
       this.ctx.fillStyle = color;
       this.ctx.fill();
->>>>>>> 42c309adab2ac9b223d3e2276831389ff37e0f3d
     }
   }
 
