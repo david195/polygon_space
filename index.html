@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<!--
+Author: David Ruiz Garcia
+github-repository: https://github.com/
+git-page: https://david195.github.io/
+-->
+
+<html>
+<head>
+  <title>*</title>
+  <meta name="author" content="David Ruiz">
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="js/draw.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/a.js"></script>
+  <script src="js/simulation.js"></script>
+  <script src="js/vis.min.js"></script>
+
+  <script>
+    var canvas;
+    function init(){
+      canvas = new draw_space(document.getElementById('canvas'),600,1000);
+      document.getElementById('defaultOpen').click();
+    }
+    function search(){
+      var algoritmo = document.getElementById('opt').value;
+      canvas.search(canvas.inode,canvas.gnode,algoritmo,document.getElementById('data'),document.getElementById('search'));
+      openCity(event, 'solution');
+    }
+    function crear_grafo(){
+      canvas.vgraph(document.getElementById('graph'));
+    }
+    function sim(){
+      var div = document.getElementById('simulation');
+      var s = new simulation(canvas,div);
+      s.start();
+    }
+  </script>
+
+</head>
+
+<body onload="init()">
+  <div class="tab">
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'draw')">Areá de edicion</button>
+    <button class="tablinks" onclick="openCity(event, 'solution')">Árbol solución</button>
+    <button class="tablinks" onclick="openCity(event, 'simulation')">Simulación</button>
+  </div>
+  <div id="layout">
+    <div id='draw' class="tabcontent">
+      <div id="canvas_buttons">
+        <button onclick="canvas.draw()">Nuevo Poligono</button>
+        <button onclick="canvas.set_inode()">Nodo inicial</button>
+        <button onclick="canvas.set_gnode()">Nodo Meta</button>
+        <button onclick="canvas.draw_visibles()">Vertices vicibles</button>
+        <button onclick="crear_grafo()">Crear Grafo</button>
+        Algoritmo:&nbsp&nbsp&nbsp<select id="opt">
+          <option value="a*">Busqueda A*</option>
+          <option value="avida">Busqueda Avida</option>
+        </select>
+        <button onclick="search()">Busqueda</button>
+      </div><br><br>
+      <div id="canvas"></div>
+      <div id="graph"></div>
+      <div id="graphS"></div>
+    </div>
+    <div id='solution' class="tabcontent">
+      <div id="search"></div>
+      <div id="data"></div>
+    </div>
+    <div id="simulation" class="tabcontent" >
+      <button onclick="sim()">start</button>
+    </div>
+  </div>
+</body>
+</html>
