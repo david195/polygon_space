@@ -187,8 +187,10 @@ function draw_space(div,height,width){
   this.search = function(ei,ef,type,data_div,div){
     if(ei==ef)
       return;
+    for (i in this.nodes)
+      this.nodes[i].color = null;
+    var aux_nodes = this.nodes;
     if(type == 'a*'){
-      aux_nodes = this.nodes;
     var aux = null;
     if(type == 'a*')
       a(ei,ef,{nodes:this.graph.body.data.nodes,edges:this.graph.body.data.edges},function(sol){
@@ -199,17 +201,20 @@ function draw_space(div,height,width){
           aux_nodes[ind].color = 'red'
         }
       });
-      this.canvas.style.opacity = 0.5;
-      this.vgraph(this.graph.body.container);
-      this.graph.redraw();
-      if(type == 'avida')
-        avida(ei,ef,{nodes:this.graph.body.data.nodes,edges:this.graph.body.data.edges},function(sol){
-          aux = sol;
-          draw_sol(sol,data_div,div);
-        });
-    this.solution = aux;
+    }
+    else
+      avida(ei,ef,{nodes:this.graph.body.data.nodes,edges:this.graph.body.data.edges},function(sol){
+        aux = sol;
+        draw_sol(sol,data_div,div);
+        for(i in sol.route){
+          var ind = parseInt(sol.route[i].split("-")[0]);
+          aux_nodes[ind].color = 'red'
+        }
+      });
+    this.canvas.style.opacity = 0.5;
+    this.vgraph(this.graph.body.container);
+    this.graph.redraw();
   }
-}
 
   this.draw_polygons = function(){
     for(var i=0;i<this.polygons.length;i++){

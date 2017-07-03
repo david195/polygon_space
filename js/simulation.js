@@ -1,10 +1,51 @@
-function simulation(drawing,div){
+/*function simulation(drawing,div){
   this.drawing = drawing;
   this.div = div;
   this.div.appendChild(this.drawing.canvas);
-  this.drawing.ctx.clearRect(0,0,this.drawing.canvas.height,this.drawing.canvas.width);
-  this.drawing.draw_polygons();
+
   this.start = function(){
+    this.drawing.ctx.clearRect(0,0,this.drawing.canvas.height,this.drawing.canvas.width);
+    this.drawing.draw_polygons();
+    console.log(this.drawing.solution.route);
+    var b = new boot(5,this.drawing.solution.route,1000,this.div);
+  }
+
+}*/
+
+function boot(n,route,time,div){
+  this.route = route;
+  this.time = time;
+  this.div = div;
+  this.n = n;
+  this.origin = {x:0,y:0};
+  this.position=-1;
+  this.moves=[];
+
+  this.start = function(){
+    if(route.length<1)
+      return;
+    this.origin = route[0];
+    this.position = 0;
+    this.init();
+    var t = setInterval(function(){
+      this.move(this.position);
+      this.position++;
+    },this.time);
+  }
+
+  this.stop = function(){
+
+  }
+
+  this.pause = function(){
+
+  }
+
+  this.play = function(){
+
+  }
+
+  this.init = function(){
 
   }
 }

@@ -1,4 +1,5 @@
 var type="a*";
+var h;
 
 function avida(ei,ef,data,callback){
   type = "avida";
@@ -6,14 +7,14 @@ function avida(ei,ef,data,callback){
 }
 
 function a(ei,ef,data,callback){
-  var h = heuristic(ef,data);
+  h = heuristic(ef,data);
   var html_list = '<hr>Lista de nodos<br><br>';
   var cont = 0;
   var nodes = [];
   var edges = [];
   var list = [];
   var np=0;
-  var n = {id:ei.toString()+"-"+h[ei],node:ei,val:h[ei],label:ei,level:0};
+  var n = {id:ei.toString()+"-"+h[ei]+"-"+ei,node:ei,val:h[ei],label:ei,level:0};
   while(n.node!=ef){
     var neighbors = get_neighbors(n,data.edges._data);
     if(neighbors.length !=0){
@@ -23,9 +24,9 @@ function a(ei,ef,data,callback){
           var v = h[n.node];
           if(type=='a*')
             v += neighbors[i].val-h[n.node];
-          list.push({id:nb.toString()+"-"+v,node:nb,val:v,label:nb,level:n.level+1});
+          list.push({id:nb.toString()+"-"+v+"-"+n.node,node:nb,val:v,label:nb,level:n.level+1});
           var e = {from:n.id.toString()};
-          e.to = nb.toString()+"-"+v;
+          e.to = nb.toString()+"-"+v+"-"+n.node;
           if(type=='a*')
             e.label = neighbors[i].val-n.val;
           else {
@@ -89,13 +90,13 @@ function get_neighbors(n,edges){
     if(edges[i].from == n.node){
       nn.label = edges[i].to;
       nn.node = edges[i].to;
-      nn.id = edges[i].to.toString()+"-"+nn.val.toString();
+      nn.id = edges[i].to.toString()+"-"+nn.val.toString()+"-"+n.node;
       nb.push(nn);
     }
     if(edges[i].to == n.node){
       nn.label = edges[i].from;
       nn.node = edges[i].from;
-      nn.id = edges[i].from.toString()+"-"+nn.val.toString();
+      nn.id = edges[i].from.toString()+"-"+nn.val.toString()+"-"+n.node;
       nb.push(nn);
     }
   }

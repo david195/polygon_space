@@ -33,7 +33,8 @@ git-page: https://david195.github.io/
     }
     function sim(){
       var div = document.getElementById('simulation');
-      var s = new simulation(canvas,div);
+      route = [{x:0,y:0},{x:20,y:20},{x:200,y:100}];
+      var s = new boot(5,route,1000,div);
       s.start();
     }
   </script>
@@ -52,7 +53,7 @@ git-page: https://david195.github.io/
         <button onclick="canvas.draw()">Nuevo Poligono</button>
         <button onclick="canvas.set_inode()">Nodo inicial</button>
         <button onclick="canvas.set_gnode()">Nodo Meta</button>
-        <button onclick="canvas.draw_visibles()">Vertices vicibles</button>
+        <button onclick="canvas.draw_visibles()">Vertices visibles</button>
         <button onclick="crear_grafo()">Crear Grafo</button>
         Algoritmo:&nbsp&nbsp&nbsp<select id="opt">
           <option value="a*">Busqueda A*</option>
