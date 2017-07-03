@@ -24,15 +24,24 @@ function a(ei,ef,data,callback){
           var v = h[n.node];
           if(type=='a*')
             v += neighbors[i].val-h[n.node];
-          list.push({id:nb.toString()+"-"+v+"-"+n.node,node:nb,val:v,label:nb,level:n.level+1});
-          var e = {from:n.id.toString()};
-          e.to = nb.toString()+"-"+v+"-"+n.node;
-          if(type=='a*')
-            e.label = neighbors[i].val-n.val;
-          else {
-            e.label = neighbors[i].val;
+          var exist = false;
+          for (var ind in list) {
+            if(nb.toString()+"-"+v+"-"+n.node == list[ind].id){
+                exist = true;
+                break;
+            }
           }
-          edges.push(e);
+          if(!exist){
+            list.push({id:nb.toString()+"-"+v+"-"+n.node,node:nb,val:v,label:nb,level:n.level+1});
+            var e = {from:n.id.toString()};
+            e.to = nb.toString()+"-"+v+"-"+n.node;
+            if(type=='a*')
+              e.label = neighbors[i].val-n.val;
+            else {
+              e.label = neighbors[i].val;
+            }
+            edges.push(e);
+          }
         }
       }
     }
